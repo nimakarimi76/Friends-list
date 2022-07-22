@@ -1,27 +1,17 @@
-<div id="<%= dom_id friend %>">
-  <p>
-    <strong>First name:</strong>
-    <%= friend.first_name %>
-  </p>
-
-  <p>
-    <strong>Last name:</strong>
+<div id="<%= dom_id friend %>" class="jumbotron">
+  <h1 class="display-4">
+    <%= friend.first_name %> 
     <%= friend.last_name %>
+  </h1>
+  <p class="lead">
+    <%= friend.email %> |
+    <%= friend.phone %> |
+    @<%= friend.instagram_id %>
   </p>
-
-  <p>
-    <strong>Email:</strong>
-    <%= friend.email %>
-  </p>
-
-  <p>
-    <strong>Phone:</strong>
-    <%= friend.phone %>
-  </p>
-
-  <p>
-    <strong>Instagram:</strong>
-    <%= friend.instagram_id %>
-  </p>
-
+  <hr class="my-4">
+  <div>
+    <%= link_to "Edit this friend", edit_friend_path(@friend), class:'btn btn-outline-info' %>
+    <%= link_to "Back to friends", friends_path, class:'btn btn-outline-secondary' %>
+    <%= button_to "Destroy this friend", @friend, method: :delete, class: "btn btn-outline-danger"%>
+  </div>
 </div>

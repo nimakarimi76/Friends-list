@@ -1,14 +1,33 @@
 <p style="color: green"><%= notice %></p>
 
-<h1>Friends</h1>
+<h1>
+  Friends List
+  <span class="mx-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-light">
+    <%= @friends.all.count %>
+  </span>
+</h1>
+
+<br/>
+
+<%= render "friend_table", friend: @friend %> 
+
+    <%
+=begin%>
 
 <div id="friends">
   <% @friends.each do |friend| %>
     <%= render friend %>
     <p>
-      <%= link_to "Show this friend", friend %>
+      <%= link_to "Show this friend", friend, class:'btn btn-outline-info' %>
     </p>
+    <br> 
   <% end %>
 </div>
 
-<%= link_to "New friend", new_friend_path %>
+<%
+=end%>
+
+
+<%= link_to "Add New friend", new_friend_path, class:'btn btn-success' %>
+
+<%= render 'layouts/footer' %>
