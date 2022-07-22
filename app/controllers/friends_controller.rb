@@ -61,7 +61,7 @@ class FriendsController < ApplicationController
 
     respond_to do |format|
       format.html do
-        redirect_to friends_url, notice: 'Friend was successfully destroyed.'
+        redirect_to friends_url, alert: 'Friend is deleted.'
       end
       format.json { head :no_content }
     end
