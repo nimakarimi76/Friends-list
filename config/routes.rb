@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  devise_for :users
+
+  #* use the following lines or change link_to to button_to for sign out
+  # devise_scope :user do
+  #   get '/users/sign_out' => 'devise/sessions#destroy'
+  # end
+
   resources :friends
   root 'home#index'
 
