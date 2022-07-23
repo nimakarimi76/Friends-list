@@ -1,0 +1,29 @@
+<table class="table table-dark table-striped table-hover table-bordered ">
+ <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Instagram</th>
+    </tr>
+  </thead>
+  <tbody>
+  <% @friends.each do |friend| %>
+ <tr>
+      <td> <%= dom_id friend %></td>
+      <td> <%= friend.first_name %></td>
+      <td> <%= friend.last_name %></td>
+      <td> <%= friend.email %></td>
+      <td> <%= friend.phone %></td>
+      <td> <%= friend.instagram_id %></td>
+
+      <td> <%= link_to "Show", friend, class:'btn btn-outline-light' %></td>
+      <td> <%= link_to "Edit", edit_friend_path(friend), class:'btn btn-outline-info' %></td>
+      <td> <%= button_to "Delete", friend, method: :delete, class: "btn btn-outline-danger"%></td>
+
+    </tr>
+    <%end %>
+  </tbody>
+</table>
