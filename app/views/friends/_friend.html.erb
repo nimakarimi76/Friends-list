@@ -12,6 +12,6 @@
   <div>
     <%= link_to "Edit this friend", edit_friend_path(@friend), class:'btn btn-outline-info' %>
     <%= link_to "Back to friends", friends_path, class:'btn btn-outline-secondary' %>
-    <%= button_to "Destroy this friend", @friend, method: :delete, class: "btn btn-outline-danger"%>
+    <%= button_to "Delete #{friend.first_name}", @friend, method: :delete, class: "btn btn-outline-danger mt-2"%>
   </div>
 </div>
