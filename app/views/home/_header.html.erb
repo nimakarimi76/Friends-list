@@ -6,9 +6,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav mfe-auto mb-2 mb-lg-0">
-        </li>
-          <%= link_to "Home", root_path, class:'nav-link active'%>
-        </li>
+      
         <li>
           <%= link_to "About us", home_about_path, class:'nav-link' %> 
         </li>
@@ -17,8 +15,8 @@
           <%= link_to "Friends List", friends_path, class:'nav-link dropdown-toggle'%>
 
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item" href="#">Action</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><a class="dropdown-item" href="#">Add a friend</a></li>
+            <li><a class="dropdown-item" href="#">Share your friend</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="#">Something else here</a></li>
           </ul>
@@ -34,7 +32,7 @@
             <%= link_to "Edit Profile", edit_user_registration_path, class:'nav-link' %> 
           </li>
           <li>
-            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class:'btn btn-outline-danger' %> 
+            <%= button_to "Sign Out", destroy_user_session_path, method: :delete, class:'btn btn-outline-danger btn-sm my-1 mx-1' %> 
           </li>
         <% else %>
           <li>
