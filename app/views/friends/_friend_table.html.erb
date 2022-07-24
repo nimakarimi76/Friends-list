@@ -1,8 +1,16 @@
+<h1>
+  Friends List
+  <span class="mx-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-light">
+    <%= current_user.friends.count %>
+  </span>
+</h1>
+
+<br/>
+
 <table class="table table-dark table-striped table-hover ">
  <thead>
     <tr>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
+      <th scope="col">Name</th>
       <th scope="col">Email</th>
       <th scope="col">Phone</th>
       <th scope="col">Instagram</th>
@@ -10,17 +18,17 @@
   </thead>
   <tbody>
   <% @friends.each do |friend| %>
- <tr>
-      <td> <%= friend.first_name %></td>
-      <td> <%= friend.last_name %></td>
-      <td> <%= friend.email %></td>
-      <td> <%= friend.phone %></td>
-      <td> <%= friend.instagram_id %></td>
+    <% if friend.user == current_user %>
+      <tr>
+        <td> <%= link_to friend.first_name + ' ' + friend.last_name, friend, class:'text-light' %></td>
+        <td> <%= friend.email %></td>
+        <td> <%= friend.phone %></td>
+        <td> <%= friend.instagram_id %></td>
 
-      <td> <%= link_to "Show", friend, class:'btn btn-outline-light' %></td>
-      <td> <%= link_to "Edit", edit_friend_path(friend), class:'btn btn-outline-info' %></td>
-      <td> <%= button_to "Delete", friend, method: :delete, class: "btn btn-outline-danger"%></td>
-    </tr>
+        <td> <%= link_to "Edit", edit_friend_path(friend), class:'btn btn-outline-info btn-sm' %></td>
+        <td> <%= button_to "Delete", friend, method: :delete, class: "btn btn-outline-danger  btn-sm"%></td>
+      </tr>
     <%end %>
+  <%end %>
   </tbody>
 </table>

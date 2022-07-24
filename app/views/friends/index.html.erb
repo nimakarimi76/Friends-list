@@ -1,13 +1,12 @@
-<h1>
-  Friends List
-  <span class="mx-1 position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-light">
-    <%= @friends.all.count %>
-  </span>
-</h1>
-
-<br/>
-
-<%= render "friend_table", friend: @friend %> 
+<% if user_signed_in? %>
+  <%= render "friend_table", friend: @friend %> 
+  <%= link_to "Add New friend", new_friend_path, class:'btn btn-success' %>
+  <%= render 'layouts/footer' %>
+<% else %>
+  <h1>Welcome!</h1>
+  <p>You have to login to access the friends table</p>
+  <%= link_to "Log in", new_user_session_path, class:'btn btn-primary' %>
+<% end %>
 
     <%
 =begin%>
@@ -26,6 +25,3 @@
 =end%>
 
 
-<%= link_to "Add New friend", new_friend_path, class:'btn btn-success' %>
-
-<%= render 'layouts/footer' %>
