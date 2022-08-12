@@ -37,6 +37,11 @@
   </div>
   
   <div class="form-group">
+    <%= form.label :state, style: "display: block" %>
+    <%= form.select :state,  ['public', 'private', 'archived'], selected: 'private', class: "form-control" %>
+  </div>
+
+  <div class="form-group">
     <%= form.number_field :user_id, id: :friend_user_id, value: current_user.id, type: "hidden", class: "form-control" %>
   </div>
  
