@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   devise_for :users
 
   #* use the following lines or change link_to to button_to for sign out
