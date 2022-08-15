@@ -1,4 +1,6 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
-
-<%= render 'layouts/footer' %>
+<%
+=begin%>
+ <div id = 'root' data-controller = 'react'></div> 
+<%
+=end%>
+<%= content_tag(:div, "", id: "root", data: { controller: "react"})%>
