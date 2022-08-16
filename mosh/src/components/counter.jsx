@@ -2,23 +2,14 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    value: this.props.counterProps.initialValue,
     tags: ["tag 1", "tag 2", "tag 3"],
   };
 
-  handleIncrement = () => {
-    this.setState({ count: ++this.state.value });
-  };
-  handleDecrement = () => {
-    this.setState({ count: --this.state.value });
-  };
-
-  style = {
-    color: "green",
-    padding: "1rem",
-    textAlign: "center",
-  };
-
+  // style = {
+  //   color: "green",
+  //   padding: "1rem",
+  //   textAlign: "center",
+  // };
   // renderTags() {
   //   return (
   //     <ul>
@@ -39,10 +30,16 @@ class Counter extends Component {
           {this.formatCount()}
         </span>
 
-        <button className="btn btn-primary" onClick={this.handleIncrement}>
+        <button
+          className="btn btn-primary"
+          onClick={() => this.props.onIncrement(this.props.counterProps)}
+        >
           increment
         </button>
-        <button className="btn btn-warning m-2" onClick={this.handleDecrement}>
+        <button
+          className="btn btn-warning m-2"
+          onClick={() => this.props.onDecrement(this.props.counterProps)}
+        >
           Decrement
         </button>
         <button
@@ -57,7 +54,7 @@ class Counter extends Component {
     );
   }
   formatCount() {
-    let { value: count } = this.state;
+    let { value: count } = this.props.counterProps;
     return count === 0 ? (
       <span className="text-danger fw-bold fs-5 text-decoration-underline">
         Zero
@@ -68,8 +65,8 @@ class Counter extends Component {
   }
 
   getCountClasses() {
-    let classes = "mx-2 badge bg-";
-    classes += this.state.value % 2 === 0 ? "info" : "primary";
+    let classes = "m-2 badge bg-";
+    classes += this.props.counterProps.value % 2 === 0 ? "info" : "primary";
     return classes;
   }
 }
