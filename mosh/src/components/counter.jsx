@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    value: this.props.initialValue,
+    value: this.props.counterProps.initialValue,
     tags: ["tag 1", "tag 2", "tag 3"],
   };
 
@@ -35,15 +35,22 @@ class Counter extends Component {
         {/* <h1 style={this.style} className="card m-3">
           Counter App
         </h1> */}
-        <button className="btn btn-primary m-3" onClick={this.handleIncrement}>
-          increment
-        </button>
-        <button className="btn btn-warning m-3" onClick={this.handleDecrement}>
-          Decrement
-        </button>
         <span style={{ padding: "1rem" }} className={this.getCountClasses()}>
           {this.formatCount()}
         </span>
+
+        <button className="btn btn-primary" onClick={this.handleIncrement}>
+          increment
+        </button>
+        <button className="btn btn-warning m-2" onClick={this.handleDecrement}>
+          Decrement
+        </button>
+        <button
+          className="btn btn-danger btn-small"
+          onClick={() => this.props.onDelete(this.props.counterProps.id)}
+        >
+          Delete
+        </button>
         {/* {this.state.tags.length == 0 && "Please create a tag"}
         {this.renderTags()} */}
       </div>
@@ -61,8 +68,8 @@ class Counter extends Component {
   }
 
   getCountClasses() {
-    let classes = "m-2 text-";
-    classes += this.state.value % 2 === 0 ? "info" : "success";
+    let classes = "mx-2 badge bg-";
+    classes += this.state.value % 2 === 0 ? "info" : "primary";
     return classes;
   }
 }

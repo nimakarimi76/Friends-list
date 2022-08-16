@@ -4,17 +4,29 @@ import Counter from "./counter";
 class Counters extends Component {
   state = {
     counters: [
-      { id: 1, value: 1 },
-      { id: 2, value: 0 },
-      { id: 3, value: 0 },
-      { id: 4, value: 3 },
+      { id: 1, initialValue: 1 },
+      { id: 2, initialValue: 1 },
+      { id: 3, initialValue: 1 },
+      { id: 4, initialValue: 3 },
     ],
   };
+
+  handleDelete = (counterId) => {
+    const counters = this.state.counters.filter((c) => c.id !== counterId);
+    // this.setState({ counters: counters });
+    //* or simpler
+    this.setState({ counters });
+  };
+
   render() {
     return (
-      <div>
+      <div className="pt-4">
         {this.state.counters.map((eachCounter) => (
-          <Counter key={eachCounter.id} initialValue={eachCounter.value} />
+          <Counter
+            key={eachCounter.id} //! we don't have access to this because react use it internally
+            counterProps={eachCounter}
+            onDelete={this.handleDelete}
+          />
         ))}
       </div>
     );
