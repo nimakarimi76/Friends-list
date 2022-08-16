@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :posts
   devise_for :users
 
   #* use the following lines or change link_to to button_to for sign out
@@ -7,7 +8,7 @@ Rails.application.routes.draw do
   # end
 
   resources :friends
-  root 'friends#index'
+  root 'home#index'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
