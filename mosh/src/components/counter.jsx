@@ -21,6 +21,7 @@ class Counter extends Component {
   // }
 
   render() {
+    const { counterProps, onDecrement, onIncrement, onDelete } = this.props;
     return (
       <div className="">
         {/* <h1 style={this.style} className="card m-3">
@@ -32,19 +33,19 @@ class Counter extends Component {
 
         <button
           className="btn btn-primary"
-          onClick={() => this.props.onIncrement(this.props.counterProps)}
+          onClick={() => onIncrement(counterProps)}
         >
           increment
         </button>
         <button
           className="btn btn-warning m-2"
-          onClick={() => this.props.onDecrement(this.props.counterProps)}
+          onClick={() => onDecrement(counterProps)}
         >
           Decrement
         </button>
         <button
           className="btn btn-danger btn-small"
-          onClick={() => this.props.onDelete(this.props.counterProps.id)}
+          onClick={() => onDelete(counterProps.id)}
         >
           Delete
         </button>
@@ -56,9 +57,7 @@ class Counter extends Component {
   formatCount() {
     let { value: count } = this.props.counterProps;
     return count === 0 ? (
-      <span className="text-danger fw-bold fs-5 text-decoration-underline">
-        Zero
-      </span>
+      <span className="text-danger text-decoration-underline">Zero</span>
     ) : (
       count
     );
