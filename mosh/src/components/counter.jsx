@@ -2,12 +2,15 @@ import React, { Component } from "react";
 
 class Counter extends Component {
   state = {
-    count: 3,
+    value: this.props.initialValue,
     tags: ["tag 1", "tag 2", "tag 3"],
   };
 
   handleIncrement = () => {
-    console.log(this.state);
+    this.setState({ count: ++this.state.value });
+  };
+  handleDecrement = () => {
+    this.setState({ count: --this.state.value });
   };
 
   style = {
@@ -16,41 +19,50 @@ class Counter extends Component {
     textAlign: "center",
   };
 
-  renderTags() {
-    return (
-      <ul>
-        {this.state.tags.map((tag) => (
-          <li key={tag}> {tag}</li>
-        ))}
-      </ul>
-    );
-  }
+  // renderTags() {
+  //   return (
+  //     <ul>
+  //       {this.state.tags.map((tag) => (
+  //         <li key={tag}> {tag}</li>
+  //       ))}
+  //     </ul>
+  //   );
+  // }
 
   render() {
     return (
-      <div className="container">
-        <h1 style={this.style} className="card m-3">
+      <div className="">
+        {/* <h1 style={this.style} className="card m-3">
           Counter App
-        </h1>
+        </h1> */}
         <button className="btn btn-primary m-3" onClick={this.handleIncrement}>
           increment
         </button>
-        <h4 style={{ padding: "1rem" }} className={this.getCountClasses()}>
+        <button className="btn btn-warning m-3" onClick={this.handleDecrement}>
+          Decrement
+        </button>
+        <span style={{ padding: "1rem" }} className={this.getCountClasses()}>
           {this.formatCount()}
-        </h4>
-        {this.state.tags.length == 0 && "Please create a tag"}
-        {this.renderTags()}
+        </span>
+        {/* {this.state.tags.length == 0 && "Please create a tag"}
+        {this.renderTags()} */}
       </div>
     );
   }
   formatCount() {
-    let { count } = this.state;
-    return count === 0 ? <h3 className="text-danger">Zero</h3> : count;
+    let { value: count } = this.state;
+    return count === 0 ? (
+      <span className="text-danger fw-bold fs-5 text-decoration-underline">
+        Zero
+      </span>
+    ) : (
+      count
+    );
   }
 
   getCountClasses() {
     let classes = "m-2 text-";
-    classes += this.state.count % 2 === 0 ? "info" : "success";
+    classes += this.state.value % 2 === 0 ? "info" : "success";
     return classes;
   }
 }
