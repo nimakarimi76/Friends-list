@@ -3,14 +3,14 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 // import Counters from "./components/counters";
-// import Movies from "./components/movies";
+import Movies from "./components/movies";
 import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
-    {/* <Movies /> */}
+    {/* <App /> */}
+    <Movies />
   </React.StrictMode>
 );
 
