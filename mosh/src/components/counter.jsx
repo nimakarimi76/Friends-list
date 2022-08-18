@@ -23,34 +23,44 @@ class Counter extends Component {
   render() {
     const { counterProps, onDecrement, onIncrement, onDelete } = this.props;
     return (
-      <div className="">
+      <div className="row">
         {/* <h1 style={this.style} className="card m-3">
           Counter App
         </h1> */}
-        <span style={{ padding: "1rem" }} className={this.getCountClasses()}>
-          {this.formatCount()}
-        </span>
+        <div className="col-2">
+          <span
+            style={{ padding: "0.8rem" }}
+            className={this.getCountClasses()}
+          >
+            {this.formatCount()}
+          </span>
+        </div>
 
-        <button
-          className="btn btn-primary"
-          onClick={() => onIncrement(counterProps)}
-        >
-          increment
-        </button>
-        <button
-          className="btn btn-warning m-2"
-          onClick={() => onDecrement(counterProps)}
-        >
-          Decrement
-        </button>
-        <button
-          className="btn btn-danger btn-small"
-          onClick={() => onDelete(counterProps.id)}
-        >
-          Delete
-        </button>
-        {/* {this.state.tags.length == 0 && "Please create a tag"}
+        <div className="col">
+          <button
+            className="btn btn-primary"
+            onClick={() => onIncrement(counterProps)}
+          >
+            +
+          </button>
+
+          <button
+            id="decrement"
+            className={"btn btn-warning m-2"}
+            onClick={() => onDecrement(counterProps)}
+            disabled={counterProps.value === 0}
+          >
+            -
+          </button>
+          <button
+            className="btn btn-danger btn-small"
+            onClick={() => onDelete(counterProps.id)}
+          >
+            x
+          </button>
+          {/* {this.state.tags.length == 0 && "Please create a tag"}
         {this.renderTags()} */}
+        </div>
       </div>
     );
   }
