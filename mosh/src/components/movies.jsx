@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
+import { paginate } from "./common/paginate.js";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
     showInPage: 4,
-    selectedPage: 1,
+    currentPage: 1,
   };
 
   handleDeleteMovie = (id) => {
@@ -22,41 +23,8 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
-  handlePagination = () => {
-    const pageNumbers = Math.ceil(
-      this.state.movies.length / this.state.showInPage
-    );
-    if (pageNumbers == 1)
-      return; // just one page so don't show the pagination at all
-    else return this.showPagination(pageNumbers);
-  };
-
-  showPagination = (pageNumbers) => {
-    let output = [];
-    const active = " active";
-
-    for (let page = 1; page <= pageNumbers; page++) {
-      output.push(
-        <li
-          key={page}
-          onClick={() =>
-            this.setState({
-              ...this.state,
-              selectedPage: page,
-            })
-          }
-          className={
-            "page-item " + (this.state.selectedPage == page ? active : "")
-          }
-          style={{
-            cursor: "pointer",
-          }}
-        >
-          <a className="page-link">{page}</a>
-        </li>
-      );
-    }
-    return output;
+  handlePage = (newPage) => {
+    this.setState({ currentPage: newPage });
   };
 
   render() {
@@ -64,6 +32,8 @@ class Movies extends Component {
     const { length: count } = this.state.movies;
     if (count === 0)
       return <h3 className="p-3">There is no movie available"</h3>;
+
+    const { currentPage, showInPage } = this.state;
     return (
       <div className="container">
         <i className="fa fa-heart-o" aria-hidden="true"></i>
@@ -72,20 +42,26 @@ class Movies extends Component {
         <h1>Movies</h1>
         {this.tableOfMovies()}
 
-        <Pagination showPagination={this.handlePagination()} />
+        <Pagination
+          pageNumbers={Math.ceil(
+            this.state.movies.length / this.state.showInPage
+          )}
+          currentPage={currentPage}
+          showInPage={showInPage}
+          onChangePage={this.handlePage}
+        />
       </div>
     );
   }
 
   tableOfMovies = () => {
-    const moviesPerPage = this.state.movies.slice(
-      this.state.showInPage * (this.state.selectedPage - 1),
-      this.state.showInPage * this.state.selectedPage
-    );
+    const { movies: allMovies, showInPage, currentPage } = this.state;
+
+    const moviesPerPage = paginate(allMovies, currentPage, showInPage);
 
     return (
       <React.Fragment>
-        <p>Showing {this.state.movies.length} movies in the database</p>
+        <p>Showing {allMovies.length} movies in the database</p>
         <table className="table table-dark table-hover table-striped">
           <thead>
             <tr>
