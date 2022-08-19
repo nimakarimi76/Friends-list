@@ -1,10 +1,13 @@
 import React, { Component } from "react";
 import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
 import Like from "./common/like";
+import Pagination from "./common/pagination";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
+    showInPage: 4,
+    selectedPage: 1,
   };
 
   handleDeleteMovie = (id) => {
@@ -19,7 +22,45 @@ class Movies extends Component {
     this.setState({ movies });
   };
 
+  handlePagination = () => {
+    const pageNumbers = Math.ceil(
+      this.state.movies.length / this.state.showInPage
+    );
+    if (pageNumbers == 1)
+      return; // just one page so don't show the pagination at all
+    else return this.showPagination(pageNumbers);
+  };
+
+  showPagination = (pageNumbers) => {
+    let output = [];
+    const active = " active";
+
+    for (let page = 1; page <= pageNumbers; page++) {
+      output.push(
+        <li
+          key={page}
+          onClick={() =>
+            this.setState({
+              ...this.state,
+              selectedPage: page,
+            })
+          }
+          className={
+            "page-item " + (this.state.selectedPage == page ? active : "")
+          }
+          style={{
+            cursor: "pointer",
+          }}
+        >
+          <a className="page-link">{page}</a>
+        </li>
+      );
+    }
+    return output;
+  };
+
   render() {
+    // if there is no movies don't show the table
     const { length: count } = this.state.movies;
     if (count === 0)
       return <h3 className="p-3">There is no movie available"</h3>;
@@ -30,11 +71,18 @@ class Movies extends Component {
 
         <h1>Movies</h1>
         {this.tableOfMovies()}
+
+        <Pagination showPagination={this.handlePagination()} />
       </div>
     );
   }
 
   tableOfMovies = () => {
+    const moviesPerPage = this.state.movies.slice(
+      this.state.showInPage * (this.state.selectedPage - 1),
+      this.state.showInPage * this.state.selectedPage
+    );
+
     return (
       <React.Fragment>
         <p>Showing {this.state.movies.length} movies in the database</p>
@@ -50,7 +98,7 @@ class Movies extends Component {
             </tr>
           </thead>
           <tbody>
-            {this.state.movies.map((movie) => (
+            {moviesPerPage.map((movie) => (
               <tr key={movie._id}>
                 <td>{movie.title}</td>
                 <td>{movie.genre.name}</td>
