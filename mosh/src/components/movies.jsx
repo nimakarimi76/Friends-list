@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
 import { getGenres } from "../services/fakeGenreService";
-import Like from "./common/like";
 import Pagination from "./common/pagination";
 import { paginate } from "./common/paginate.js";
+
+import { MoviesTable } from "./moviesTable";
+
 import ListGroup from "./common/listGroup";
 
 class Movies extends Component {
@@ -32,13 +34,7 @@ class Movies extends Component {
   };
 
   handleGenreSelect = (genre) => {
-    this.setState({ selectedGenre: genre });
-    // const allMovies = getMovies();
-    // const filteredMovies =
-    //   genre == "all"
-    //     ? allMovies
-    //     : allMovies.filter((m) => m.genre.name == genre);
-    // this.setState({ movies: filteredMovies });
+    this.setState({ selectedGenre: genre, currentPage: 1 });
   };
 
   render() {
@@ -80,42 +76,13 @@ class Movies extends Component {
     return (
       <React.Fragment>
         <p>Showing {filteredMovies.length} movies in the database</p>
-        <table className="table table-dark table-hover table-striped">
-          <thead>
-            <tr>
-              <th>Title</th>
-              <th>Genre</th>
-              <th>Stock</th>
-              <th>Rate</th>
-              <th></th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {moviesPerPage.map((movie) => (
-              <tr key={movie._id}>
-                <td>{movie.title}</td>
-                <td>{movie.genre.name}</td>
-                <td>{movie.numberInStock}</td>
-                <td>{movie.dailyRentalRate}</td>
-                <td>
-                  <Like
-                    toggleLikedIcon={() => this.handleLike(movie)}
-                    liked={movie.liked}
-                  />
-                </td>
-                <td>
-                  <button
-                    onClick={() => this.handleDeleteMovie(movie._id)}
-                    className="btn btn-sm btn-danger"
-                  >
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+
+        <MoviesTable
+          movies={moviesPerPage}
+          onLike={this.handleLike}
+          onDelete={this.handleDelete}
+        />
+
         <Pagination
           pageNumbers={Math.ceil(filteredMovies.length / this.state.showInPage)}
           currentPage={currentPage}
