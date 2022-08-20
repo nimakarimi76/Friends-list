@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { getMovies, getMovie, deleteMovie } from "../services/fakeMovieService";
+import { getGenres } from "../services/fakeGenreService";
 import Like from "./common/like";
 import Pagination from "./common/pagination";
 import { paginate } from "./common/paginate.js";
+import ListGroup from "./common/listGroup";
 
 class Movies extends Component {
   state = {
     movies: getMovies(),
     showInPage: 4,
     currentPage: 1,
+    genres: getGenres(),
+    selectedGenre: "Comedy",
   };
 
   handleDeleteMovie = (id) => {
@@ -27,41 +31,55 @@ class Movies extends Component {
     this.setState({ currentPage: newPage });
   };
 
+  handleGenreSelect = (genre) => {
+    this.setState({ selectedGenre: genre });
+    // const allMovies = getMovies();
+    // const filteredMovies =
+    //   genre == "all"
+    //     ? allMovies
+    //     : allMovies.filter((m) => m.genre.name == genre);
+    // this.setState({ movies: filteredMovies });
+  };
+
   render() {
     // if there is no movies don't show the table
     const { length: count } = this.state.movies;
     if (count === 0)
       return <h3 className="p-3">There is no movie available"</h3>;
-
-    const { currentPage, showInPage } = this.state;
     return (
-      <div className="container">
-        <i className="fa fa-heart-o" aria-hidden="true"></i>
-        <i className="fa fa-heart" aria-hidden="true"></i>
-
-        <h1>Movies</h1>
-        {this.tableOfMovies()}
-
-        <Pagination
-          pageNumbers={Math.ceil(
-            this.state.movies.length / this.state.showInPage
-          )}
-          currentPage={currentPage}
-          showInPage={showInPage}
-          onChangePage={this.handlePage}
-        />
+      <div className="container row">
+        <div className="col-2 mt-5">
+          <ListGroup
+            items={this.state.genres}
+            onItemSelect={this.handleGenreSelect}
+            selectedItem={this.state.selectedGenre}
+          />
+        </div>
+        <div className="col">
+          <h1>Movies</h1>
+          {this.tableOfMovies()}
+        </div>
       </div>
     );
   }
 
   tableOfMovies = () => {
-    const { movies: allMovies, showInPage, currentPage } = this.state;
+    const {
+      movies: allMovies,
+      showInPage,
+      currentPage,
+      selectedGenre,
+    } = this.state;
 
-    const moviesPerPage = paginate(allMovies, currentPage, showInPage);
+    const filteredMovies = selectedGenre
+      ? allMovies.filter((m) => m.genre.name == selectedGenre)
+      : allMovies;
+
+    const moviesPerPage = paginate(filteredMovies, currentPage, showInPage);
 
     return (
       <React.Fragment>
-        <p>Showing {allMovies.length} movies in the database</p>
+        <p>Showing {filteredMovies.length} movies in the database</p>
         <table className="table table-dark table-hover table-striped">
           <thead>
             <tr>
@@ -98,6 +116,12 @@ class Movies extends Component {
             ))}
           </tbody>
         </table>
+        <Pagination
+          pageNumbers={Math.ceil(filteredMovies.length / this.state.showInPage)}
+          currentPage={currentPage}
+          showInPage={showInPage}
+          onChangePage={this.handlePage}
+        />
       </React.Fragment>
     );
   };
