@@ -12,6 +12,7 @@ const ListGroup = ({
     <div>
       <div className="list-group">
         <a
+          style={{ cursor: "pointer" }}
           onClick={() => onItemSelect()}
           key="all"
           className={`${className} ${selectedItem ? "" : "active"}`}
@@ -21,6 +22,7 @@ const ListGroup = ({
         </a>
         {items.map((item) => (
           <a
+            style={{ cursor: "pointer" }}
             onClick={() => onItemSelect(item[textProperty])}
             key={item[valueProperty]}
             className={`${className} ${

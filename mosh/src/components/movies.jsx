@@ -14,7 +14,8 @@ class Movies extends Component {
     showInPage: 4,
     currentPage: 1,
     genres: getGenres(),
-    selectedGenre: "Comedy",
+    selectedGenre: "",
+    sortColumn: { path: "title", order: "asc" },
   };
 
   handleDeleteMovie = (id) => {
@@ -35,6 +36,10 @@ class Movies extends Component {
 
   handleGenreSelect = (genre) => {
     this.setState({ selectedGenre: genre, currentPage: 1 });
+  };
+
+  handleSort = (path) => {
+    this.setState({ sortColumn: { path, order: "asc" } });
   };
 
   render() {
@@ -65,6 +70,7 @@ class Movies extends Component {
       showInPage,
       currentPage,
       selectedGenre,
+      sortColumn,
     } = this.state;
 
     const filteredMovies = selectedGenre
@@ -81,6 +87,7 @@ class Movies extends Component {
           movies={moviesPerPage}
           onLike={this.handleLike}
           onDelete={this.handleDelete}
+          onSort={this.handleSort}
         />
 
         <Pagination
