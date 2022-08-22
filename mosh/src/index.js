@@ -5,12 +5,14 @@ import reportWebVitals from "./reportWebVitals";
 // import Counters from "./components/counters";
 import Movies from "./components/movies";
 import App from "./App";
+import Excuse from "./components/excuses";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
     <Movies />
+    <Excuse />
   </React.StrictMode>
 );
 

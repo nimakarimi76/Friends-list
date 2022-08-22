@@ -28,6 +28,7 @@ class Movies extends Component {
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked; //* if it's true it becomes false, otherwise it becomes true
     this.setState({ movies });
+    console.log(movies);
   };
 
   handlePage = (newPage) => {
@@ -86,7 +87,7 @@ class Movies extends Component {
         <MoviesTable
           movies={moviesPerPage}
           onLike={this.handleLike}
-          onDelete={this.handleDelete}
+          onDelete={this.handleDeleteMovie}
           onSort={this.handleSort}
         />
 
