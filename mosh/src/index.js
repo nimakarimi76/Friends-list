@@ -6,17 +6,34 @@ import reportWebVitals from "./reportWebVitals";
 import Movies from "./components/movies";
 import App from "./App";
 import Excuse from "./components/excuses";
+import MoviesDetails from "./components/moviesDetails";
+
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-    <Movies />
-    <Excuse />
-  </React.StrictMode>
+  <Router>
+    <div className="">
+      <Link to="/"> Home </Link>
+      <Link className="m-5" to="/movies">
+        Movies{" "}
+      </Link>
+      <Link to="/Excuse"> Excuser </Link>
+    </div>
+    <Routes>
+      <Route path="/movies/:id" element={<MoviesDetails />} />
+      <Route
+        path="/movies"
+        render={(props) => <Movies {...props} />}
+        element={<Movies />}
+      />
+
+      {/* <Route path="/movies" element={<Movies />} /> */}
+      <Route path="/excuse" element={<Excuse />} />
+      <Route path="*" element={<h1>Page not found</h1>} />
+      <Route path="/" element={<App />} />
+    </Routes>
+  </Router>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

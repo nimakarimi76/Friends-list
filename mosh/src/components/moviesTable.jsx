@@ -1,5 +1,6 @@
 import React from "react";
 import Like from "./common/like";
+import { Link } from "react-router-dom";
 
 export const MoviesTable = ({
   movies: moviesPerPage,
@@ -22,7 +23,11 @@ export const MoviesTable = ({
       <tbody>
         {moviesPerPage.map((movie) => (
           <tr key={movie._id}>
-            <td>{movie.title}</td>
+            <td>
+              <Link to={`/movies/${movie._id}`} className="text-info">
+                {movie.title}
+              </Link>
+            </td>
             <td>{movie.genre.name}</td>
             <td>{movie.numberInStock}</td>
             <td>{movie.dailyRentalRate}</td>
