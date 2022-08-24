@@ -7,6 +7,7 @@ import { paginate } from "./common/paginate.js";
 import { MoviesTable } from "./moviesTable";
 
 import ListGroup from "./common/listGroup";
+import LikeAllContext from "./likeAllContext.js";
 
 class Movies extends Component {
   state = {
@@ -16,6 +17,7 @@ class Movies extends Component {
     genres: getGenres(),
     selectedGenre: "",
     sortColumn: { path: "title", order: "asc" },
+    likeAll: false,
   };
 
   handleDeleteMovie = (id) => {
@@ -28,7 +30,6 @@ class Movies extends Component {
     movies[index] = { ...movies[index] };
     movies[index].liked = !movies[index].liked; //* if it's true it becomes false, otherwise it becomes true
     this.setState({ movies });
-    console.log(movies);
   };
 
   handlePage = (newPage) => {
@@ -41,6 +42,10 @@ class Movies extends Component {
 
   handleSort = (path) => {
     this.setState({ sortColumn: { path, order: "asc" } });
+  };
+
+  handleLikeAll = () => {
+    this.setState({ likeAll: !this.state.likeAll });
   };
 
   render() {
@@ -56,6 +61,12 @@ class Movies extends Component {
             onItemSelect={this.handleGenreSelect}
             selectedItem={this.state.selectedGenre}
           />
+          <button
+            className="mt-5 btn btn-outline-success"
+            onClick={this.handleLikeAll}
+          >
+            {this.state.likeAll ? "Unlike all" : "Like all"}
+          </button>
         </div>
         <div className="col">
           <h1>Movies</h1>
@@ -83,18 +94,23 @@ class Movies extends Component {
     return (
       <React.Fragment>
         <p>Showing {filteredMovies.length} movies in the database</p>
-
-        <MoviesTable
-          movies={moviesPerPage}
-          onLike={this.handleLike}
-          onDelete={this.handleDeleteMovie}
-          onSort={this.handleSort}
-        />
+        <LikeAllContext.Provider
+          value={{
+            likeAllState: this.state.likeAll,
+            onLikeAllClick: this.handleLikeAll,
+          }}
+        >
+          <MoviesTable
+            movies={moviesPerPage}
+            onLike={this.handleLike}
+            onDelete={this.handleDeleteMovie}
+            onSort={this.handleSort}
+          />
+        </LikeAllContext.Provider>
 
         <Pagination
           pageNumbers={Math.ceil(filteredMovies.length / this.state.showInPage)}
           currentPage={currentPage}
-          showInPage={showInPage}
           onChangePage={this.handlePage}
         />
       </React.Fragment>

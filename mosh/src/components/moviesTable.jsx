@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useContext } from "react";
 import Like from "./common/like";
 import { Link } from "react-router-dom";
+import LikeAllContext from "./likeAllContext.js";
 
 export const MoviesTable = ({
   movies: moviesPerPage,
@@ -8,6 +9,8 @@ export const MoviesTable = ({
   onDelete,
   onSort,
 }) => {
+  const likeAllContext = useContext(LikeAllContext);
+
   return (
     <table className="table table-dark table-hover table-striped">
       <thead>
@@ -16,7 +19,12 @@ export const MoviesTable = ({
           <th onClick={() => onSort("genre.name")}>Genre</th>
           <th onClick={() => onSort("numberInStock")}>Stock</th>
           <th onClick={() => onSort("rating")}>Rate</th>
-          <th></th>
+          <th
+            onClick={() => likeAllContext.onLikeAllClick()}
+            style={{ cursor: "pointer" }}
+          >
+            {likeAllContext.likeAllState ? "Unlike all" : "Like all"}
+          </th>
           <th></th>
         </tr>
       </thead>
