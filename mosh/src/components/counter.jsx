@@ -29,8 +29,9 @@ class Counter extends Component {
         </h1> */}
         <div className="col-2">
           <span
-            style={{ padding: "0.8rem" }}
-            className={this.getCountClasses()}
+            style={{ padding: "0.8rem", background: "gray" }}
+            // className={this.getCountClasses()}
+            className="m-2 badge"
           >
             {this.formatCount()}
           </span>
@@ -38,7 +39,7 @@ class Counter extends Component {
 
         <div className="col">
           <button
-            className="btn btn-primary"
+            className="btn btn-outline-primary"
             onClick={() => onIncrement(counterProps)}
           >
             +
@@ -46,14 +47,14 @@ class Counter extends Component {
 
           <button
             id="decrement"
-            className={"btn btn-warning m-2"}
+            className={"btn btn-outline-warning m-2"}
             onClick={() => onDecrement(counterProps)}
             disabled={counterProps.value === 0}
           >
             -
           </button>
           <button
-            className="btn btn-danger btn-small"
+            className="btn btn-outline-danger btn-small"
             onClick={() => onDelete(counterProps.id)}
           >
             x
@@ -67,17 +68,17 @@ class Counter extends Component {
   formatCount() {
     let { value: count } = this.props.counterProps;
     return count === 0 ? (
-      <span className="text-danger text-decoration-underline">Zero</span>
+      <span className="text-decoration-underline">Zero</span>
     ) : (
       count
     );
   }
 
-  getCountClasses() {
-    let classes = "m-2 badge bg-";
-    classes += this.props.counterProps.value % 2 === 0 ? "info" : "primary";
-    return classes;
-  }
+  // getCountClasses() {
+  //   let classes = "m-2 badge bg-";
+  //   classes += this.props.counterProps.value % 2 === 0 ? "info" : "primary";
+  //   return classes;
+  // }
 }
 
 export default Counter;

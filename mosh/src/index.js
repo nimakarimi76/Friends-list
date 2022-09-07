@@ -9,20 +9,34 @@ import Excuse from "./components/excuses";
 import MoviesDetails from "./components/moviesDetails";
 import Users from "./components/users";
 
-import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Link,
+  NavLink,
+} from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Router>
-    <div className="">
-      <Link to="/">Home</Link>
-      <Link className="m-5" to="/movies">
+    <div className="navbar navbar-expand-lg bg-dark navbar-dark">
+      <NavLink
+        className="nav-item nav-link text-light"
+        to="/"
+        activeClassName="active"
+      >
+        Home
+      </NavLink>
+      <NavLink className="nav-item nav-link text-light" to="/movies">
         Movies
-      </Link>
-      <Link to="/Excuse">Excuser</Link>
-      <Link className="mx-4" to="/Users">
+      </NavLink>
+      <NavLink className="nav-item nav-link text-light" to="/Excuse">
+        Excuser
+      </NavLink>
+      <NavLink className="nav-item nav-link text-light" to="/Users">
         Users
-      </Link>
+      </NavLink>
     </div>
     <Routes>
       <Route path="/movies/:id" element={<MoviesDetails />} />

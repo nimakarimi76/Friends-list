@@ -45,7 +45,7 @@ export const MoviesTable = ({
             <td>
               <button
                 onClick={() => onDelete(movie._id)}
-                className="btn btn-sm btn-danger"
+                className="btn btn-sm btn-outline-danger"
               >
                 Delete
               </button>

@@ -9,7 +9,7 @@ class Counters extends Component {
       <div className="pt-4">
         <button
           onClick={onReset}
-          className="btn btn-outline-secondary m-2 btn-sm"
+          className="btn btn-outline-warning m-2 btn-sm"
         >
           Reset
         </button>
